@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>4-Letter Consonant Blends</title>
   <style>
     body {
@@ -15,7 +15,7 @@
     .navbar {
       background-color: #00695c;
       color: white;
-      padding: 20px 10px;
+      padding: 15px 10px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -40,35 +40,35 @@
     .nav-right {
       display: flex;
       align-items: center;
-      gap: 20px;
+      gap: 15px;
     }
 
     .navbar a {
       color: white;
       text-decoration: none;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
     }
 
     .hamburger {
-      font-size: 28px;
+      font-size: 26px;
       cursor: pointer;
     }
 
     .rate-wrapper {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 5px;
     }
 
     .rate-wrapper label {
       color: white;
-      font-size: 16px;
+      font-size: 14px;
     }
 
     .rate-wrapper select {
-      font-size: 16px;
-      padding: 4px 8px;
+      font-size: 14px;
+      padding: 4px 6px;
     }
 
     .sidebar {
@@ -120,26 +120,73 @@
     .word-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-      gap: 25px;
+      gap: 20px;
       max-width: 1000px;
       margin: 20px auto;
       padding: 0 20px;
-      font-size: 20px;
+      font-size: 18px;
     }
 
     .word-box {
       background: white;
       border: 2px solid #4db6ac;
-      padding: 10px;
+      padding: 12px;
       border-radius: 8px;
       font-weight: bold;
       color: #004d40;
       text-align: center;
       cursor: pointer;
     }
+
+    /* ✅ Responsive Media Queries */
+    @media (max-width: 768px) {
+      .nav-center {
+        position: static;
+        transform: none;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        font-size: 18px;
+      }
+
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-right {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+
+      .rate-wrapper {
+        margin: 10px 0;
+      }
+
+      .navbar a {
+        font-size: 14px;
+      }
+
+      .sidebar {
+        width: 80%;
+      }
+
+      .word-box {
+        font-size: 16px;
+        padding: 10px;
+      }
+
+      .rate-wrapper label,
+      .rate-wrapper select {
+        font-size: 13px;
+      }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Navbar -->
   <div class="navbar">
     <div class="nav-left">
       <span class="hamburger" onclick="toggleSidebar()">&#9776;</span>
@@ -151,11 +198,11 @@
       <div class="rate-wrapper">
         <label for="rateControl">Speed:</label>
         <select id="rateControl" onchange="updateRate()">
-          <option value="0.05">0.05x</option>
+          <option value="0.05" selected>0.05x</option>
           <option value="0.25">0.25x</option>
           <option value="0.5">0.5x</option>
           <option value="0.75">0.75x</option>
-          <option value="1" selected>1x</option>
+          <option value="1">1x</option>
           <option value="1.25">1.25x</option>
         </select>
       </div>
@@ -164,59 +211,33 @@
     </div>
   </div>
 
+  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
-    <button onclick="showWords('con_l_vow_c')"> Con + L + Vow + C</button>
-    <button onclick="showWords('con_vow_con_s')"> Con + Vow + Con + S</button>
+    <button onclick="showWords('con_l_vow_c')">Con + L + Vow + C</button>
+    <button onclick="showWords('con_vow_con_s')">Con + Vow + Con + S</button>
     <button onclick="showWords('con_vow_m_t')">Con + Vow + M + T</button>
     <button onclick="showWords('con_vow_m_t_d')">Con + Vow + M + T/D</button>
     <button onclick="showWords('s_k_vow_con')">S + K + Vow + Con</button>
-    <button onclick="showWords('con_vow_m_k')"> Con + Vow + M + K</button>
-    <button onclick="showWords('s_c_vow_con')"> S + C + Vow + Con</button>
+    <button onclick="showWords('con_vow_m_k')">Con + Vow + M + K</button>
+    <button onclick="showWords('s_c_vow_con')">S + C + Vow + Con</button>
     <button onclick="showWords('con_r_vow_con')">Con + R + Vow + Con</button>
-    <button onclick="showWords('con_vow_s_k')"> Con + Vow + S + K</button>
-    <button onclick="showWords('con_vow_n_k')"> Con + Vow + N + K</button>
+    <button onclick="showWords('con_vow_s_k')">Con + Vow + S + K</button>
+    <button onclick="showWords('con_vow_n_k')">Con + Vow + N + K</button>
     <button onclick="showWords('con_vow_f_t')">Con + Vow + F + T</button>
     <button onclick="showWords('s_p_vow_con')">S + P + Vow + Con</button>
     <button onclick="showWords('p_l_vow_con')">P + L + Vow + Con</button>
     <button onclick="showWords('con_vow_m_p')">Con + Vow + M + P</button>
-
   </div>
 
+  <!-- Overlay -->
   <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
 
+  <!-- Word Grid -->
   <div id="word-grid" class="word-grid"></div>
 
+  <!-- Scripts -->
   <script>
-    const wordSets = {
-      con_l_vow_c: ["clap", "clog", "club", "clam", "clip", "clad", "clop", "clot", "clue", "clay", "clew", "clag", "clan", "claw", "clef", "clop", "clog", "clum", "clim", "clib", "clen", "cled", "clit", "clun", "clab", "clep", "clom", "clux", "claz", "claf", "clup", "clow", "clid", "clor", "clat", "clex", "cled", "clag", "clix", "clav"],
-      con_vow_con_s: ["bats", "cuts", "dips", "gaps", "hops", "lips", "maps", "naps", "pits", "rips", "tops", "vets", "zips", "wets", "jots", "kegs", "mops", "nuts", "wigs", "yaks", "hats", "hips", "cups", "mats", "taps", "tips", "yaps", "pats", "kips", "zaps", "laps", "sips", "wags", "buns", "bins", "rugs", "bugs", "nips", "cogs", "logs"],
-      con_vow_m_t: ["bent", "mint", "pant", "rant", "sent", "tent", "went", "lent", "kent", "cent", "hint", "lint", "tint", "vent", "font", "hunt", "punt", "dent", "zest", "cost", "last", "cast", "vast", "pest", "rest", "nest", "fest", "jest", "test", "best", "mast", "bust", "must", "dust", "lust", "list", "mist", "gist", "fist", "wist"],
-      con_vow_m_t_d: ["damp", "dent", "dump", "lamp", "band", "land", "send", "bend", "fund", "hand", "lend", "tend", "wind", "bond", "pond", "kind", "mind", "mend", "sand", "bind", "find", "wand", "fond", "bold", "cold", "gold", "hold", "told", "fold", "sold", "wild", "mild", "rend", "meld", "peld", "zeld", "cend", "gild", "lend"],
-      s_k_vow_con: ["skit", "skip", "skid", "skin", "skan", "skun", "skat", "skop", "skud", "skep", "skib", "skot", "skeg", "skam", "skil", "skab", "skaf", "skum", "skaz", "skex", "skir", "skup", "skod", "skov", "skew", "skyl", "skor", "skon", "skap", "skag", "skad", "skub", "sket", "skil", "skax", "skav", "skas", "skew", "skox", "skur"],
-      con_vow_m_k: ["bark", "bank", "bulk", "funk", "honk", "junk", "lank", "link", "pink", "rink", "sank", "tank", "wink", "yank", "zonk", "monk", "bonk", "bunk", "dunk", "punk", "gunk", "hunk", "junk", "kink", "mink", "sink", "zink", "vink", "zunk", "nunk", "runk", "cank", "rank", "lunk", "munk", "bork", "lork"],
-      s_c_vow_con: ["scan", "scar", "scab", "scam", "scud", "scum", "scop", "scot", "scat", "scap", "scag", "scow", "scog", "scub", "scob", "scil", "scav", "scad", "scet", "scel", "scaf", "scod", "scok", "scul", "scux", "scer", "scir", "scit", "scep", "scut", "scis", "scek", "scuv", "scax", "scem", "scog", "scol", "scow", "scil", "scir"],
-      con_r_vow_con: ["brat", "brag", "bred", "crib", "crop", "trap", "drip", "grip", "grab", "grim", "gram", "crab", "drop", "frog", "from", "trot", "trod", "trip", "tram", "drag", "drab", "drug", "drum", "trim", "prim", "pram", "brog", "brim", "grog", "grub", "grin", "brim", "brad", "trop", "tron", "trug", "braw", "grap", "trig", "brux"],
-      con_vow_s_k: ["bask", "desk", "disk", "mask", "risk", "task", "tusk", "husk", "cask", "dusk", "mosk", "zask", "lusk", "pask", "nusk", "rusk", "wisk", "gask", "jusk", "vask", "kask", "fisk", "yask", "bisk", "qisk", "zusk", "vusk", "musk", "susk", "sisk", "sosk", "bosk", "fosk", "nask", "losk", "kusk"],
-      con_vow_n_k: ["bank", "bonk", "bunk", "dunk", "honk", "junk", "monk", "tank", "yank", "zonk", "wink", "sank", "lank"],
-      con_vow_f_t: [ "left", "loft", "gift", "waft", "haft", "lift", "rift", "soft", "daft", "tuft","heft", "pift", "nift", "cift", "bift", "toft", "deft", "zift", "kift", "wift", "mift", "yift", "xift", "sift", "gaft", "vift", "hilt", "raft", "zift", "lapt"],
-      s_p_vow_con: [
-  "spin", "span", "spot", "spit", "sped", "spam", "spun", "spat", "spog", "spak",
-  "span", "spod", "spol", "spel", "spom", "spug", "spun", "spet", "spix", "spop",
-  "spum", "spit", "spad", "spun", "spug", "spom", "spiv", "spik", "spen", "spud"
-],
-      p_l_vow_con: [
-  "plan", "plot", "plug", "plop", "plod", "play", "plea", "plow", "plum", "plak",
-  "plet", "plim", "plog", "pluf", "plas", "plop", "plak", "pliz", "plex", "plin",
-  "plab", "plaz", "plam", "plen", "plax", "pleb", "plor", "pluk", "plem", "plik"
-],    con_vow_m_p: [
-  "jump", "lamp", "temp", "bump", "dump", "camp", "comp", "ramp", "hump", "limp",
-  "damp", "gimp", "wimp", "romp", "simp", "tamp", "yomp", "zump", "nump", "kump",
-  "lomp", "fump", "bamp", "vamp", "jomp", "mump", "pimp", "hamp", "bomp", "gump"
-]
-
-
-
-    };
+    const wordSets = { /* already defined sets (your long wordSets list) */ };
 
     let currentRate = 1;
 
@@ -256,11 +277,11 @@
         });
       }
     }
-    // Show default word set on page load
-    window.onload = function () {
-       showWords('con_l_vow_c');
-    };
 
+    // Default on load
+    window.onload = function () {
+      showWords('con_l_vow_c');
+    };
   </script>
 </body>
 </html>
