@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>3-Letter CVC Words</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f1f8f9;
+    }
+
+    .navbar {
+      background-color: #00695c;
+      color: white;
+      padding: 20px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .rate-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rate-wrapper label {
+      color: white;
+      font-size: 16px;
+    }
+
+    .rate-wrapper select {
+      font-size: 16px;
+      padding: 4px 8px;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      background-color: #c8e6c9;
+      padding: 20px;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .sidebar.show {
+      transform: translateX(0);
+    }
+
+    .sidebar button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      background: #4db6ac;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 900;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+      font-size: 20px;
+    }
+
+    .word-box {
+      background: white;
+      border: 2px solid #4db6ac;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #004d40;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 10px;
+      }
+
+      .nav-center {
+        position: static;
+        transform: none;
+        font-size: 18px;
+        margin: 10px 0;
+        text-align: center;
+      }
+
+      .nav-right {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .rate-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .word-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        font-size: 18px;
+        gap: 15px;
+      }
+
+      .word-box {
+        font-size: 16px;
+        padding: 8px;
+      }
+
+      .sidebar {
+        width: 80%;
+        padding: 15px;
+      }
+
+      .sidebar button {
+        font-size: 14px;
+        padding: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <div class="nav-left">
+      <span class="hamburger" onclick="toggleSidebar()">&#9776;</span>
+    </div>
+    <div class="nav-center">3-Letter Blending</div>
+    <div class="nav-right">
+      <div class="rate-wrapper">
+        <label for="rateControl">Speed:</label>
+        <select id="rateControl" onchange="updateRate()">
+          <option value="0.05">0.05x</option>
+          <option value="0.25">0.25x</option>
+          <option value="0.5">0.5x</option>
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.25">1.25x</option>
+        </select>
+      </div>
+      <a href="index.html">Home</a>
+      <a href="index.html">Back</a>
+    </div>
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <button onclick="showWords('a')">a</button>
+    <button onclick="showWords('e')">e</button>
+    <button onclick="showWords('i')">i</button>
+    <button onclick="showWords('o')">o</button>
+    <button onclick="showWords('u')">u</button>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+  <div id="word-grid" class="word-grid"></div>
+
+  <script>
+    const wordSets = {
+      a:["cat", "bat", "mat", "rat", "sat", "pat", "cap", "map", "tap", "gap",
+ "nap", "jam", "man", "fan", "bag", "tag", "wag", "lap", "cab", "dad",
+ "pad", "van", "ram", "can", "sap", "had", "bad", "lad", "mad", "yam"],
+      e: ["bed", "red", "led", "net", "pet", "ten", "pen", "men", "hen", "den",
+ "fed", "bet", "vet", "wet", "peg", "leg", "set", "get", "yet", "met",
+ "zed", "jet", "let", "web", "gem", "ned", "hem", "beg", "ken", "lex"]
+,
+      i: ["big", "dig", "fig", "pig", "wig", "hit", "bit", "kit", "lit", "sit",
+ "zip", "tip", "dip", "rip", "lid", "kid", "mid", "fin", "win", "bin",
+ "tin", "jib", "nip", "pip", "him", "rim", "sib", "gig", "hip", "vim"]
+,
+      o: ["cot", "dot", "hot", "lot", "pot", "rot", "top", "hop", "mop", "pop",
+ "log", "dog", "bog", "fog", "jog", "sob", "job", "cob", "rob", "nod",
+ "pod", "mom", "tom", "rod", "cop", "cod", "don", "got", "pox", "con"]
+,
+      u: ["cub", "tub", "rub", "hub", "sub", "bug", "dug", "mug", "rug", "jug",
+ "sun", "fun", "run", "bun", "gun", "nun", "cut", "nut", "hut", "but",
+ "mud", "bud", "pug", "gum", "pup", "lug", "cup", "sup", "tug", "fud"]
+
+    };
+
+    let currentRate = 1;
+
+    function updateRate() {
+      const rateSelect = document.getElementById('rateControl');
+      currentRate = parseFloat(rateSelect.value);
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('show');
+      document.getElementById('overlay').classList.toggle('show');
+    }
+
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('show');
+      document.getElementById('overlay').classList.remove('show');
+    }
+
+    function speakWord(word) {
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = 'en-IN';
+      utterance.rate = currentRate;
+      speechSynthesis.speak(utterance);
+    }
+
+    function showWords(letter) {
+      closeSidebar();
+      const grid = document.getElementById("word-grid");
+      grid.innerHTML = "";
+      if (wordSets[letter]) {
+        wordSets[letter].forEach(word => {
+          const div = document.createElement("div");
+          div.className = "word-box";
+          div.textContent = word;
+          div.onclick = () => speakWord(word);
+          grid.appendChild(div);
+        });
+      }
+    }
+
+    window.onload = function () {
+      showWords('a');
+    };
+  </script>
+</body>
+
+</html>
