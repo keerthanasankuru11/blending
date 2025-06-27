@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4-Letter Word Blending</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f1f8f9;
+    }
+
+    .navbar {
+      background-color: #00695c;
+      color: white;
+      padding: 25px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+     
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .categories {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 50px;
+      gap: 20px;
+    }
+
+    .category-box {
+      background-color: #4db6ac;
+      width: 60%;
+      max-width: 300px;
+      color: white;
+      padding: 20px 40px;
+      border-radius: 8px;
+      font-size: 22px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .category-box:hover {
+      background-color: #00796b;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="nav-left"></div>
+
+    <div class="nav-center">4-Letter Word Blending</div>
+
+    <div class="nav-right">
+      <a href="index.html">Home</a>
+      <a href="index.html">Back</a>
+    </div>
+  </div>
+
+  <!-- Category Options -->
+  <div class="categories">
+    <div class="category-box" onclick="location.href='4lcons.html'">Consonant Blends</div>
+    <div class="category-box" onclick="location.href='4lvow.html'">Vowel Blends</div>
+    
+  </div>
+
+</body>
+</html>

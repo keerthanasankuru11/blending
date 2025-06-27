@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>4-Letter Vowel Blends</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f1f8f9;
+    }
+
+    .navbar {
+      background-color: #00695c;
+      color: white;
+      padding: 20px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      flex-wrap: wrap;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-center {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+    }
+
+    .rate-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .rate-wrapper label {
+      color: white;
+      font-size: 16px;
+    }
+
+    .rate-wrapper select {
+      font-size: 16px;
+      padding: 4px 8px;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 250px;
+      background-color: #c8e6c9;
+      padding: 20px;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1000;
+      overflow-y: auto;
+    }
+
+    .sidebar.show {
+      transform: translateX(0);
+    }
+
+    .sidebar button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      background: #4db6ac;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      display: none;
+      z-index: 900;
+    }
+
+    .overlay.show {
+      display: block;
+    }
+
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 25px;
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 0 20px;
+      font-size: 20px;
+    }
+
+    .word-box {
+      background: white;
+      border: 2px solid #4db6ac;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      color: #004d40;
+      text-align: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="nav-left">
+      <span class="hamburger" onclick="toggleSidebar()">&#9776;</span>
+    </div>
+
+    <div class="nav-center">4-Letter Vowel Blends</div>
+
+    <div class="nav-right">
+      <div class="rate-wrapper">
+        <label for="rateControl">Speed:</label>
+        <select id="rateControl" onchange="updateRate()">
+          <option value="0.05">0.05x</option>
+          <option value="0.25">0.25x</option>
+          <option value="0.5">0.5x</option>
+          <option value="0.75">0.75x</option>
+          <option value="1" selected>1x</option>
+          <option value="1.25">1.25x</option>
+        </select>
+      </div>
+      <a href="index.html">Home</a>
+      <a href="4lcat.html">Back</a>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <button onclick="showWords('ai')">‘ai’ blend</button>
+    <button onclick="showWords('oa')">‘oa’ blend</button>
+    <button onclick="showWords('ie')">‘ie’ blend</button>
+    <button onclick="showWords('ee')">‘ee’ blend</button>
+    <button onclick="showWords('or')">‘or’ blend</button>
+    <button onclick="showWords('oo')">‘oo’ blend</button>
+  </div>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay" onclick="closeSidebar()"></div>
+
+  <!-- Word Grid -->
+  <div id="word-grid" class="word-grid"></div>
+
+  <!-- JavaScript -->
+  <script>
+    const wordSets = {
+      ai: ["aid", "aim", "bait", "pail", "nail", "fail", "tail", "gain", "rain", "vain", "pain", "main"],
+      oa: ["oats", "boat", "coat", "moan", "loan", "foam", "roam", "toad", "goat", "soap"],
+      ie: ["died", "tied", "lies", "pier", "tier", "fier", "mien", "lief", "sies"],
+      ee: ["beef", "need", "seed", "meet", "feet", "jeep", "peel", "reed", "heel", "seen"],
+      or: ["lord", "fork", "cord", "born", "torn", "port", "sort", "word", "horn", "form"],
+      oo: ["wood", "foot", "book", "cook", "look", "good", "hood", "moon", "roof", "boot"]
+    };
+
+    let currentRate = 1;
+
+    function updateRate() {
+      const rateSelect = document.getElementById('rateControl');
+      currentRate = parseFloat(rateSelect.value);
+    }
+
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('show');
+      document.getElementById('overlay').classList.toggle('show');
+    }
+
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('show');
+      document.getElementById('overlay').classList.remove('show');
+    }
+
+    function speakWord(word) {
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = "en-IN";
+      utterance.rate = currentRate;
+      speechSynthesis.speak(utterance);
+    }
+
+    function showWords(setName) {
+      closeSidebar();
+      const grid = document.getElementById("word-grid");
+      grid.innerHTML = "";
+      if (wordSets[setName]) {
+        wordSets[setName].forEach(word => {
+          const div = document.createElement("div");
+          div.className = "word-box";
+          div.textContent = word;
+          div.onclick = () => speakWord(word);
+          grid.appendChild(div);
+        });
+      }
+    }
+    // Show default word set on page load
+    window.onload = function () {
+       showWords('ai');
+    };
+
+  </script>
+
+</body>
+</html>

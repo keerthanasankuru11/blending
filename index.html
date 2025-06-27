@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Phonics Blending App - Home</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      text-align: center;
+    }
+
+    .navbar {
+      background-color: #00695c;
+      color: white;
+      padding: 25px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .navbar a {
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .navbar .title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #00695c;
+      margin-bottom: 20px;
+    }
+    p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #444;
+    }
+    .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+    .option-button {
+      padding: 12px 20px;
+      font-size: 16px;
+      background-color: #4db6ac;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .option-button:hover {
+      background-color: #00796b;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <a href="index.html"> Home</a>
+    <div class="title">Phonics Blending App</div>
+  </div>
+
+  <div class="container">
+    <h1>Welcome to the Phonics Blending App</h1>
+    <p>Select a word length to begin:</p>
+    <div class="options">
+      <button class="option-button" onclick="goToCategory(3)">3-Letter</button>
+      <button class="option-button" onclick="window.location.href='4lcat.html'">4-Letter</button>
+
+      <button class="option-button" onclick="goToCategory(5)">5-Letter</button>
+    </div>
+  </div>
+
+  <script>
+    function goToCategory(length) {
+      window.location.href = `categories.html?length=${length}`;
+    }
+  </script>
+</body>
+</html>
